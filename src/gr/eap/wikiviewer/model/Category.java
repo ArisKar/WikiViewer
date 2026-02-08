@@ -18,7 +18,11 @@ public class Category implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    //old
+    /*@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Article> articles = new ArrayList<>();*/
+    //correction
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Article> articles = new ArrayList<>();
 
     public Category() {}
