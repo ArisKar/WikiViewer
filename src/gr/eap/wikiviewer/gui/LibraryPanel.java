@@ -32,10 +32,26 @@ public class LibraryPanel extends JPanel {
         topPanel.add(addCatBtn);
 
         localModel = new DefaultTableModel(new String[]{"ID Σελίδα", "Τίτλος", "Κατηγορία", "Βαθμολογία", "Σχόλια"}, 0);
-        localTable = new JTable(localModel);
+        localTable = new JTable(localModel) {
+        @Override
+        public Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+            Component c = super.prepareRenderer(renderer, row, column);
+            // Αν η γραμμή δεν είναι επιλεγμένη
+            if (!isRowSelected(row)) {
+                // Χρωμάτισε τις ζυγές γραμμές με ένα ελαφρύ γκρι
+                c.setBackground(row % 2 == 0 ? getBackground() : new Color(240, 240, 240));
+            }
+            return c;
+        }
+        };
+
+        localTable.setRowHeight(25); // Αυξάνει το ύψος για να φαίνεται πιο καθαρά το κείμενο
+        localTable.setShowGrid(false); // Κρύβει τις γραμμές του πλέγματος για πιο clean look
+        localTable.setIntercellSpacing(new Dimension(0, 0)); // Μειώνει τα κενά ανάμεσα στα κελιά
+        
         add(topPanel, BorderLayout.NORTH);
         add(new JScrollPane(localTable), BorderLayout.CENTER);
-
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JButton editBtn = new JButton("Επεξεργασία Επιλεγμένου");
         add(editBtn, BorderLayout.SOUTH);
 
