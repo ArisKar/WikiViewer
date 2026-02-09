@@ -24,21 +24,58 @@ public class StatisticsPanel extends JPanel {
         initComponents();
     }
 
-    private void initComponents() {
-        statsModel = new DefaultTableModel(new String[]{"Statistic", "Value"}, 0);
-        statsTable = new JTable(statsModel);
-        add(new JScrollPane(statsTable), BorderLayout.CENTER);
+   private void initComponents() {
+        // Ορισμός του μοντέλου με τις στήλες εξαρχής
+        statsModel = new DefaultTableModel(new String[]{"Στατιστικό", "Τιμή"}, 0); //
 
-        JPanel bottomPanel = new JPanel();
-        JButton refreshBtn = new JButton("Refresh Stats");
-        JButton pdfBtn = new JButton("Export to PDF");
-        bottomPanel.add(refreshBtn);
-        bottomPanel.add(pdfBtn);
-        add(bottomPanel, BorderLayout.SOUTH);
+        // Δημιουργία του JTable με το Override του Renderer για τις ρίγες
+        statsTable = new JTable(statsModel) { //
+            @Override
+            public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+                java.awt.Component c = super.prepareRenderer(renderer, row, column);
+                if (!isRowSelected(row)) {
+                    // Εναλλαγή χρωμάτων για ριγέ εμφάνιση
+                    c.setBackground(row % 2 == 0 ? getBackground() : new java.awt.Color(242, 242, 242));
+                }
+                return c;
+            }
+    };
 
-        refreshBtn.addActionListener(e -> loadStats());
-        pdfBtn.addActionListener(e -> exportStatsToPdf());
-    }
+    // Ρυθμίσεις εμφάνισης (μετά τη δημιουργία του table)
+    statsTable.setRowHeight(28);
+    statsTable.setShowGrid(false);
+    
+    // Κεντράρισμα της δεύτερης στήλης (Τιμή)
+    javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
+    statsTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+
+    // Προσθήκη στο ScrollPane
+    add(new JScrollPane(statsTable), BorderLayout.CENTER); //
+
+    // Δημιουργία του κάτω Panel και των κουμπιών
+    JPanel bottomPanel = new JPanel(); //
+    JButton refreshBtn = new JButton("Ανανέωση"); //
+    JButton pdfBtn = new JButton("Εξαγωγή σε PDF"); //
+    
+    // Styling στα κουμπιά
+    refreshBtn.setBackground(new java.awt.Color(108, 117, 125));
+    refreshBtn.setForeground(java.awt.Color.WHITE);
+    pdfBtn.setBackground(new java.awt.Color(220, 53, 69));
+    pdfBtn.setForeground(java.awt.Color.WHITE);
+
+    bottomPanel.add(refreshBtn); //
+    bottomPanel.add(pdfBtn); //
+    add(bottomPanel, BorderLayout.SOUTH); //
+
+    // 6. Listeners
+    refreshBtn.addActionListener(e -> loadStats()); //
+    pdfBtn.addActionListener(e -> exportStatsToPdf()); //
+    
+    // Προσθήκη κενού (padding) σε όλο το Panel
+    this.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+}
+    
 
     public void loadStats() {
         statsModel.setRowCount(0);
