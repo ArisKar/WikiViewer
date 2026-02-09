@@ -24,6 +24,7 @@ public class SearchPanel extends JPanel {
         this.dbManager = dbManager;
         setLayout(new BorderLayout());
         initComponents();
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     }
 
     private void initComponents() {
@@ -35,11 +36,36 @@ public class SearchPanel extends JPanel {
         topPanel.add(searchBtn);
 
         searchModel = new DefaultTableModel(new String[]{"Τίτλος", "Απόσπασμα", "ID Σελίδας"}, 0);
-        searchTable = new JTable(searchModel);
+        searchTable = new JTable(searchModel) {
+        @Override
+        public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+            java.awt.Component c = super.prepareRenderer(renderer, row, column);
+            if (!isRowSelected(row)) {
+                    // Εναλλαγή χρωμάτων: Λευκό για τις ζυγές, απαλό γκρι (245, 245, 245) για τις περιττές
+                    c.setBackground(row % 2 == 0 ? getBackground() : new java.awt.Color(245, 245, 245));
+                }
+                return c;
+            }
+        };
+        //Κουμπί Αναζήτησης
+        searchBtn.setBackground(new java.awt.Color(0, 123, 255)); // Μπλε
+        searchBtn.setForeground(java.awt.Color.WHITE); // Λευκά γράμματα
+        searchBtn.setFocusPainted(false); // Αφαίρεση του περιγράμματος εστίασης
+        
+        
+        
+        //Πίνακας Αναζήτησης
+        searchTable.setRowHeight(25);
+        searchTable.setIntercellSpacing(new java.awt.Dimension(5, 5)); 
+        searchTable.setShowGrid(false);
+        
         add(topPanel, BorderLayout.NORTH);
         add(new JScrollPane(searchTable), BorderLayout.CENTER);
-
+        //Κουμπί Αποθήκευσης
         JButton saveBtn = new JButton("Αποθήκευση Επιλεγμένου");
+        saveBtn.setBackground(new java.awt.Color(40, 167, 69)); // Πράσινο
+        saveBtn.setForeground(java.awt.Color.WHITE);
+        saveBtn.setFocusPainted(false);
         add(saveBtn, BorderLayout.SOUTH);
         
         // Ενέργειες Παραθύρου
