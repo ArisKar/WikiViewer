@@ -24,14 +24,14 @@ public class LibraryPanel extends JPanel {
     private void initComponents() {
         JPanel topPanel = new JPanel();
         categoryFilter = new JComboBox<>();
-        JButton filterBtn = new JButton("Φίλτρο");
+        JButton filterBtn = new JButton("Εμφάνιση Αποθηκευμένων");
         JButton addCatBtn = new JButton("Προσθήκη Κατηγορίας");
         topPanel.add(new JLabel("Κατηγορία:"));
         topPanel.add(categoryFilter);
         topPanel.add(filterBtn);
         topPanel.add(addCatBtn);
 
-        localModel = new DefaultTableModel(new String[]{"ID Σελίδα", "Τίτλος", "Κατηγορία", "Βαθμολογία", "Σχόλια"}, 0);
+        localModel = new DefaultTableModel(new String[]{"ID Σελίδας", "Τίτλος", "Κατηγορία", "Βαθμολογία", "Σχόλια"}, 0);
         localTable = new JTable(localModel) {
         @Override
         public Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
