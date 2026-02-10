@@ -38,43 +38,50 @@ public class StatisticsPanel extends JPanel {
                     c.setBackground(row % 2 == 0 ? getBackground() : new java.awt.Color(242, 242, 242));
                 }
                 return c;
-            }
-    };
+                }
+        };
 
-    // Ρυθμίσεις εμφάνισης (μετά τη δημιουργία του table)
-    statsTable.setRowHeight(28);
-    statsTable.setShowGrid(false);
+       //Προσαρμογή μεγέθους στηλών
+        javax.swing.table.TableColumnModel statsColumnModel = statsTable.getColumnModel();
+        statsColumnModel.getColumn(0).setPreferredWidth(500);//Ρύθμιση Στήλης "Στατιστικό" (Index 0)
+        statsColumnModel.getColumn(1).setPreferredWidth(100);//Ρύθμιση Στήλης "Τιμή" (Index 1)
+        statsColumnModel.getColumn(1).setMaxWidth(150);
+
+
+        // Ρυθμίσεις εμφάνισης (μετά τη δημιουργία του table)
+        statsTable.setRowHeight(28);
+        statsTable.setShowGrid(false);
     
-    // Κεντράρισμα της δεύτερης στήλης (Τιμή)
-    javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
-    statsTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        // Κεντράρισμα της δεύτερης στήλης (Τιμή)
+        javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
+        statsTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 
-    // Προσθήκη στο ScrollPane
-    add(new JScrollPane(statsTable), BorderLayout.CENTER); 
+        // Προσθήκη στο ScrollPane
+        add(new JScrollPane(statsTable), BorderLayout.CENTER); 
 
-    // Δημιουργία του κάτω Panel και των κουμπιών
-    JPanel bottomPanel = new JPanel(); 
-    JButton refreshBtn = new JButton("Ανανέωση"); 
-    JButton pdfBtn = new JButton("Εξαγωγή σε PDF"); 
+        // Δημιουργία του κάτω Panel και των κουμπιών
+        JPanel bottomPanel = new JPanel(); 
+        JButton refreshBtn = new JButton("Ανανέωση"); 
+        JButton pdfBtn = new JButton("Εξαγωγή σε PDF"); 
     
-    // Styling στα κουμπιά
-    refreshBtn.setBackground(new java.awt.Color(108, 117, 125));
-    refreshBtn.setForeground(java.awt.Color.WHITE);
-    pdfBtn.setBackground(new java.awt.Color(220, 53, 69));
-    pdfBtn.setForeground(java.awt.Color.WHITE);
+        // Styling στα κουμπιά
+        refreshBtn.setBackground(new java.awt.Color(108, 117, 125));
+        refreshBtn.setForeground(java.awt.Color.WHITE);
+        pdfBtn.setBackground(new java.awt.Color(220, 53, 69));
+        pdfBtn.setForeground(java.awt.Color.WHITE);
 
-    bottomPanel.add(refreshBtn); 
-    bottomPanel.add(pdfBtn); 
-    add(bottomPanel, BorderLayout.SOUTH); 
+        bottomPanel.add(refreshBtn); 
+        bottomPanel.add(pdfBtn); 
+        add(bottomPanel, BorderLayout.SOUTH); 
 
-    // Ενέργειες Παραθύρου
-    refreshBtn.addActionListener(e -> loadStats()); 
-    pdfBtn.addActionListener(e -> exportStatsToPdf()); 
+        // Ενέργειες Παραθύρου
+        refreshBtn.addActionListener(e -> loadStats()); 
+        pdfBtn.addActionListener(e -> exportStatsToPdf()); 
     
-    // Προσθήκη κενού (padding) σε όλο το Panel
-    this.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
-}
+        // Προσθήκη κενού (padding) σε όλο το Panel
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    }
     
     // Φόρτωση στατιστικών από τη βάση δεδομένων.
     public void loadStats() {
