@@ -73,6 +73,8 @@ public class SearchPanel extends JPanel {
         searchBtn.addActionListener(e -> performSearch());
         // Λειτουργία Αποθήκευσης. Πατάμε αποθήκευση του άρθου που θέλουμε.
         saveBtn.addActionListener(e -> saveSelectedArticle());
+        // Επιτρέπει την αναζήτηση με το πάτημα του Enter
+        searchField.addActionListener(e -> performSearch());
     }
 
     private void performSearch() {
