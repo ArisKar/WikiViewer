@@ -37,22 +37,28 @@ public class SearchPanel extends JPanel {
 
         searchModel = new DefaultTableModel(new String[]{"Τίτλος", "Απόσπασμα", "ID Σελίδας"}, 0);
         searchTable = new JTable(searchModel) {
-        @Override
-        public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
-            java.awt.Component c = super.prepareRenderer(renderer, row, column);
-            if (!isRowSelected(row)) {
+            @Override
+            public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+                java.awt.Component c = super.prepareRenderer(renderer, row, column);
+                if (!isRowSelected(row)) {
                     // Εναλλαγή χρωμάτων: Λευκό για τις ζυγές, απαλό γκρι (245, 245, 245) για τις περιττές
                     c.setBackground(row % 2 == 0 ? getBackground() : new java.awt.Color(245, 245, 245));
                 }
                 return c;
             }
         };
+
+        // 3. Προσαρμογή μεγέθους στηλών
+        javax.swing.table.TableColumnModel searchColumnModel = searchTable.getColumnModel();//Λήψη μοντέλου στηλών
+        searchColumnModel.getColumn(0).setPreferredWidth(250);// Τίτλος (Index 0)
+        searchColumnModel.getColumn(1).setPreferredWidth(500);// Απόσπασμα (Index 1)
+        searchColumnModel.getColumn(2).setPreferredWidth(90);// ID Σελίδας (Index 2)
+        searchColumnModel.getColumn(2).setMaxWidth(110);
+        
         //Κουμπί Αναζήτησης
         searchBtn.setBackground(new java.awt.Color(0, 123, 255)); // Μπλε
         searchBtn.setForeground(java.awt.Color.WHITE); // Λευκά γράμματα
         searchBtn.setFocusPainted(false); // Αφαίρεση του περιγράμματος εστίασης
-        
-        
         
         //Πίνακας Αναζήτησης
         searchTable.setRowHeight(25);
