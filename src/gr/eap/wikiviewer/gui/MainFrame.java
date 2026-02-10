@@ -39,7 +39,7 @@ public class MainFrame extends JFrame {
     }
 
     private void initComponents() {
-        tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
         
         // Δημιουργία panels.
         searchPanel = new SearchPanel(this, wikiService, dbManager);
