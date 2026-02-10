@@ -47,8 +47,8 @@ public class MainFrame extends JFrame {
         statisticsPanel = new StatisticsPanel(dbManager, pdfService);
         
         // Προσθήκη tabs
-        tabbedPane.addTab("Αναζήτηση [Live apo API]", searchPanel);
-        tabbedPane.addTab("Αποθηκευμένα Άρθα", libraryPanel);
+        tabbedPane.addTab("Αναζήτηση [Live από API]", searchPanel);
+        tabbedPane.addTab("Αποθηκευμένα Άρθρα", libraryPanel);
         tabbedPane.addTab("Στατιστικά", statisticsPanel);
         
         // Προσθήκη του tabbed pane στο frame
