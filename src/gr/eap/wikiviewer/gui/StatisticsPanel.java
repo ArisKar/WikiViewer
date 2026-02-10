@@ -24,63 +24,85 @@ public class StatisticsPanel extends JPanel {
         initComponents();
     }
 
-   private void initComponents() {
-        // Δημιουργία του πίνακα του αρχικού με τις 2 στήλες.
-        statsModel = new DefaultTableModel(new String[]{"Στατιστικό", "Τιμή"}, 0); 
+    private void initComponents() {
+        // Δημιουργία του μοντέλου με τις στήλες
+        statsModel = new DefaultTableModel(new String[]{"Στατιστικό", "Τιμή"}, 0);
 
-        // Δημιουργία του JTable με το Override του Renderer για τις ρίγες
-        statsTable = new JTable(statsModel) { 
+        // Δημιουργία του JTable με το Override του Renderer για ριγέ γραμμές
+        statsTable = new JTable(statsModel) {
             @Override
             public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
                 java.awt.Component c = super.prepareRenderer(renderer, row, column);
                 if (!isRowSelected(row)) {
-                    // Εναλλαγή χρωμάτων για ριγέ εμφάνιση
-                    c.setBackground(row % 2 == 0 ? getBackground() : new java.awt.Color(242, 242, 242));
+                    // Εναλλαγή μεταξύ σκούρων χρωμάτων (Wikipedia Dark)
+                    c.setBackground(row % 2 == 0 ? new java.awt.Color(32, 37, 48) : new java.awt.Color(25, 30, 40));
+                    c.setForeground(new java.awt.Color(230, 230, 230));
+                } else {
+                    // Χρώμα επιλεγμένης γραμμής
+                    c.setBackground(new java.awt.Color(51, 102, 204));
+                    c.setForeground(java.awt.Color.WHITE);
                 }
                 return c;
-                }
+            }
         };
 
-       //Προσαρμογή μεγέθους στηλών
-        javax.swing.table.TableColumnModel statsColumnModel = statsTable.getColumnModel();
-        statsColumnModel.getColumn(0).setPreferredWidth(500);//Ρύθμιση Στήλης "Στατιστικό" (Index 0)
-        statsColumnModel.getColumn(1).setPreferredWidth(100);//Ρύθμιση Στήλης "Τιμή" (Index 1)
-        statsColumnModel.getColumn(1).setMaxWidth(150);
-
-
-        // Ρυθμίσεις εμφάνισης (μετά τη δημιουργία του table)
+        // Ρυθμίσεις εμφάνισης και γεμίσματος του πίνακα
+        statsTable.setBackground(new java.awt.Color(32, 37, 48));
+        statsTable.setForeground(new java.awt.Color(230, 230, 230));
+        statsTable.setFillsViewportHeight(true); // Διορθώνει το γκρι φόντο όταν ο πίνακας είναι άδειος
         statsTable.setRowHeight(28);
         statsTable.setShowGrid(false);
-    
-        // Κεντράρισμα της δεύτερης στήλης (Τιμή)
+        statsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
+
+        // Ρυθμίσεις Κεφαλίδας (Header)
+        javax.swing.table.JTableHeader statsHeader = statsTable.getTableHeader();
+        statsHeader.setBackground(new java.awt.Color(51, 102, 204));
+        statsHeader.setForeground(java.awt.Color.WHITE);
+        statsHeader.setFont(statsHeader.getFont().deriveFont(java.awt.Font.BOLD, 13f));
+
+        // Ρυθμίσεις Στηλών (Πλάτος και Κεντράρισμα)
+        javax.swing.table.TableColumnModel statsColumnModel = statsTable.getColumnModel();
+        statsColumnModel.getColumn(0).setPreferredWidth(500); // Στατιστικό
+        statsColumnModel.getColumn(1).setPreferredWidth(100); // Τιμή
+        statsColumnModel.getColumn(1).setMaxWidth(150);
+
         javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
-        statsTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        statsColumnModel.getColumn(1).setCellRenderer(centerRenderer);
 
-        // Προσθήκη στο ScrollPane
-        add(new JScrollPane(statsTable), BorderLayout.CENTER); 
+        // Δημιουργία και Ρύθμιση του ScrollPane (Viewport)
+        JScrollPane scrollPane = new JScrollPane(statsTable);
+        scrollPane.getViewport().setBackground(new java.awt.Color(18, 21, 28)); // Σκούρο φόντο περιοχής
+        scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
+        add(scrollPane, BorderLayout.CENTER);
 
-        // Δημιουργία του κάτω Panel και των κουμπιών
-        JPanel bottomPanel = new JPanel(); 
-        JButton refreshBtn = new JButton("Ανανέωση"); 
-        JButton pdfBtn = new JButton("Εξαγωγή σε PDF"); 
+        // Κάτω Panel με Κουμπιά
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
     
-        // Styling στα κουμπιά
+        JButton refreshBtn = new JButton("Ανανέωση");
         refreshBtn.setBackground(new java.awt.Color(108, 117, 125));
         refreshBtn.setForeground(java.awt.Color.WHITE);
+        refreshBtn.setFocusPainted(false);
+        refreshBtn.setToolTipText("Επικαιροποίηση των στατιστικών στοιχείων από τη βάση δεδομένων");
+
+        JButton pdfBtn = new JButton("Εξαγωγή σε PDF");
         pdfBtn.setBackground(new java.awt.Color(220, 53, 69));
         pdfBtn.setForeground(java.awt.Color.WHITE);
+        pdfBtn.setFocusPainted(false);
+        pdfBtn.setToolTipText("Δημιουργία αρχείου PDF με τα πιο δημοφιλή keywords και άρθρα ανά κατηγορία");
 
-        bottomPanel.add(refreshBtn); 
-        bottomPanel.add(pdfBtn); 
-        add(bottomPanel, BorderLayout.SOUTH); 
+        bottomPanel.add(refreshBtn);
+        bottomPanel.add(pdfBtn);
+        add(bottomPanel, BorderLayout.SOUTH);
 
-        // Ενέργειες Παραθύρου
-        refreshBtn.addActionListener(e -> loadStats()); 
-        pdfBtn.addActionListener(e -> exportStatsToPdf()); 
-    
-        // Προσθήκη κενού (padding) σε όλο το Panel
+        // Ενέργειες (Listeners)
+        refreshBtn.addActionListener(e -> loadStats());
+        pdfBtn.addActionListener(e -> exportStatsToPdf());
+
+        // Γενικό περιθώριο στο Panel
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        this.setBackground(new java.awt.Color(18, 21, 28));
     }
     
     // Φόρτωση στατιστικών από τη βάση δεδομένων.
