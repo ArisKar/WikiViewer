@@ -33,18 +33,26 @@ public class LibraryPanel extends JPanel {
 
         localModel = new DefaultTableModel(new String[]{"ID Σελίδας", "Τίτλος", "Κατηγορία", "Βαθμολογία", "Σχόλια"}, 0);
         localTable = new JTable(localModel) {
-        @Override
-        public Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
-            Component c = super.prepareRenderer(renderer, row, column);
-            // Αν η γραμμή δεν είναι επιλεγμένη
-            if (!isRowSelected(row)) {
-                // Χρωμάτισε τις ζυγές γραμμές με ένα ελαφρύ γκρι
-                c.setBackground(row % 2 == 0 ? getBackground() : new Color(240, 240, 240));
+            @Override
+            public Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                // Αν η γραμμή δεν είναι επιλεγμένη
+                if (!isRowSelected(row)) {
+                    // Χρωμάτισε τις ζυγές γραμμές με ένα ελαφρύ γκρι
+                    c.setBackground(row % 2 == 0 ? getBackground() : new Color(240, 240, 240));
+                }
+                return c;
             }
-            return c;
-        }
         };
-
+        //Προσαρμογή μεγέθους Στηλών
+        javax.swing.table.TableColumnModel columnModel = localTable.getColumnModel();// Λήψη του μοντέλου στηλών
+        columnModel.getColumn(0).setPreferredWidth(80);// ID Σελίδας (Στήλη 0) - Σταθερό πλάτος
+        columnModel.getColumn(0).setMaxWidth(100);// Τίτλος (Στήλη 1) - Μεγάλο πλάτος (θα επεκτείνεται)
+        columnModel.getColumn(1).setPreferredWidth(300);// Κατηγορία (Στήλη 2)
+        columnModel.getColumn(2).setPreferredWidth(120);// Βαθμολογία (Στήλη 3) - Σταθερό πλάτος
+        columnModel.getColumn(3).setPreferredWidth(80);
+        columnModel.getColumn(3).setMaxWidth(100);
+        columnModel.getColumn(4).setPreferredWidth(200);// Σχόλια (Στήλη 4)
         localTable.setRowHeight(25); // Αυξάνει το ύψος για να φαίνεται πιο καθαρά το κείμενο
         localTable.setShowGrid(false); // Κρύβει τις γραμμές του πλέγματος για πιο clean look
         localTable.setIntercellSpacing(new Dimension(0, 0)); // Μειώνει τα κενά ανάμεσα στα κελιά
