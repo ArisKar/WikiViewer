@@ -41,18 +41,46 @@ public class MainFrame extends JFrame {
     private void initComponents() {
         tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
         
+        //  Ρύθμιση του φόντου του JTabbedPane
+        tabbedPane.setBackground(new java.awt.Color(18, 21, 28)); // Το σκούρο φόντο
+        tabbedPane.setForeground(java.awt.Color.WHITE);          // Λευκά γράμματα στα tabs
+        tabbedPane.setOpaque(true);
+
+        //  Ρύθμιση των UI defaults για να φύγει το γκρι περίγραμμα (προαιρετικό αλλά προτείνεται)
+        UIManager.put("TabbedPane.contentAreaColor", new java.awt.Color(18, 21, 28));
+        UIManager.put("TabbedPane.selected", new java.awt.Color(51, 102, 204)); // Μπλε όταν επιλέγεται
+        UIManager.put("TabbedPane.borderHighlightColor", new java.awt.Color(51, 102, 204));
+
+        //  Ρύθμιση του φόντου του ίδιου του Frame
+        this.getContentPane().setBackground(new java.awt.Color(18, 21, 28));
+        
+        // Αλλαγή γραμματοσειράς για όλα τα tabs
+        tabbedPane.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 14));
+        
         // Δημιουργία panels.
         searchPanel = new SearchPanel(this, wikiService, dbManager);
         libraryPanel = new LibraryPanel(dbManager);
         statisticsPanel = new StatisticsPanel(dbManager, pdfService);
         
+        
+        //Εφαρμογή του θέματος σε κάθε panel
+        applyWikipediaTheme(searchPanel);
+        applyWikipediaTheme(libraryPanel);
+        applyWikipediaTheme(statisticsPanel);
+        
         // Προσθήκη tabs
         tabbedPane.addTab("Αναζήτηση [Live από API]", searchPanel);
         tabbedPane.addTab("Αποθηκευμένα Άρθρα", libraryPanel);
         tabbedPane.addTab("Στατιστικά", statisticsPanel);
-        
+         
         // Προσθήκη του tabbed pane στο frame
         add(tabbedPane, BorderLayout.CENTER);
+        
+        //Αλλαγή χρώματος φόντου
+        tabbedPane.setBackground(new Color(32, 37, 48));
+        tabbedPane.setForeground(Color.WHITE);
+        // Αφαίρεση του κλασικού γκρι περιγράμματος
+        UIManager.put("TabbedPane.contentOpaque", false);
     }
 
     // Aνανέωση των αποθηκευμένων άρθρων
@@ -65,4 +93,43 @@ public class MainFrame extends JFrame {
             new MainFrame().setVisible(true);
         });
     }
+    
+    public void applyWikipediaTheme(JPanel panel) {
+        Color darkBackground = new Color(18, 21, 28);
+        Color wikiBlue = new Color(51, 102, 204);
+        Color lightText = new Color(230, 230, 230);
+
+        panel.setBackground(darkBackground);
+    
+        for (Component c : panel.getComponents()) {
+            // Αλλαγή φόντου σε εσωτερικά panels (π.χ. topPanel, bottomPanel)
+            if (c instanceof JPanel) {
+                c.setBackground(darkBackground);
+                applyWikipediaTheme((JPanel) c); // Αναδρομική κλήση για sub-panels
+            }
+            // Αλλαγή χρώματος σε Labels (Σκούρο Μπλε)
+            if (c instanceof JLabel) {
+                c.setForeground(wikiBlue);
+                c.setFont(c.getFont().deriveFont(Font.BOLD));
+            }
+            // Αλλαγή εμφάνισης σε TextFields
+            if (c instanceof JTextField) {
+                c.setBackground(new Color(32, 37, 48));
+                c.setForeground(lightText);
+                
+            }
+            if (c instanceof JLabel) {
+                c.setForeground(new java.awt.Color(51, 102, 204)); // Το έντονο μπλε για τους τίτλους "Λέξη κλειδί:"
+                c.setFont(c.getFont().deriveFont(java.awt.Font.BOLD));
+            }
+            if (c instanceof JTextField) {
+                c.setBackground(new java.awt.Color(32, 37, 48));
+                c.setForeground(java.awt.Color.WHITE);
+            }
+        }
+    }
 }
+
+
+
+    
