@@ -3,7 +3,6 @@ package gr.eap.wikiviewer.gui;
 import gr.eap.wikiviewer.model.Article;
 import gr.eap.wikiviewer.service.DBManager;
 import gr.eap.wikiviewer.service.WikipediaService;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -26,63 +25,93 @@ public class SearchPanel extends JPanel {
         initComponents();
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     }
-
     private void initComponents() {
+        // Πάνω Panel Αναζήτησης
         JPanel topPanel = new JPanel();
+        topPanel.setBackground(new java.awt.Color(18, 21, 28));
+    
         searchField = new JTextField(30);
+        searchField.setBackground(new java.awt.Color(32, 37, 48));
+        searchField.setForeground(java.awt.Color.WHITE);
+        searchField.setCaretColor(java.awt.Color.WHITE);
+        searchField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
+
         JButton searchBtn = new JButton("Αναζήτηση");
-        topPanel.add(new JLabel("Λέξη κλειδί:"));
+        searchBtn.setBackground(new java.awt.Color(51, 102, 204));
+        searchBtn.setForeground(java.awt.Color.WHITE);
+        searchBtn.setFocusPainted(false);
+
+        JLabel searchLabel = new JLabel("Λέξη κλειδί:");
+        searchLabel.setForeground(new java.awt.Color(51, 102, 204));
+        searchLabel.setFont(searchLabel.getFont().deriveFont(java.awt.Font.BOLD));
+
+        topPanel.add(searchLabel);
         topPanel.add(searchField);
         topPanel.add(searchBtn);
 
+        // Δημιουργία Μοντέλου και Πίνακα
         searchModel = new DefaultTableModel(new String[]{"Τίτλος", "Απόσπασμα", "ID Σελίδας"}, 0);
         searchTable = new JTable(searchModel) {
             @Override
             public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
                 java.awt.Component c = super.prepareRenderer(renderer, row, column);
                 if (!isRowSelected(row)) {
-                    // Εναλλαγή χρωμάτων: Λευκό για τις ζυγές, απαλό γκρι (245, 245, 245) για τις περιττές
-                    c.setBackground(row % 2 == 0 ? getBackground() : new java.awt.Color(245, 245, 245));
+                    c.setBackground(row % 2 == 0 ? new java.awt.Color(32, 37, 48) : new java.awt.Color(25, 30, 40));
+                    c.setForeground(new java.awt.Color(230, 230, 230));
+                } else {
+                    c.setBackground(new java.awt.Color(51, 102, 204));
+                    c.setForeground(java.awt.Color.WHITE);
                 }
                 return c;
             }
         };
 
-        // 3. Προσαρμογή μεγέθους στηλών
-        javax.swing.table.TableColumnModel searchColumnModel = searchTable.getColumnModel();//Λήψη μοντέλου στηλών
-        searchColumnModel.getColumn(0).setPreferredWidth(250);// Τίτλος (Index 0)
-        searchColumnModel.getColumn(1).setPreferredWidth(500);// Απόσπασμα (Index 1)
-        searchColumnModel.getColumn(2).setPreferredWidth(90);// ID Σελίδας (Index 2)
-        searchColumnModel.getColumn(2).setMaxWidth(110);
-        
-        //Κουμπί Αναζήτησης
-        searchBtn.setBackground(new java.awt.Color(0, 123, 255)); // Μπλε
-        searchBtn.setForeground(java.awt.Color.WHITE); // Λευκά γράμματα
-        searchBtn.setFocusPainted(false); // Αφαίρεση του περιγράμματος εστίασης
-        
-        //Πίνακας Αναζήτησης
+        // Ρυθμίσεις Εμφάνισης Πίνακα
+        searchTable.setBackground(new java.awt.Color(32, 37, 48));
+        searchTable.setFillsViewportHeight(true);
         searchTable.setRowHeight(25);
-        searchTable.setIntercellSpacing(new java.awt.Dimension(5, 5)); 
         searchTable.setShowGrid(false);
-        
-        add(topPanel, BorderLayout.NORTH);
-        add(new JScrollPane(searchTable), BorderLayout.CENTER);
-        //Κουμπί Αποθήκευσης
+
+        // Ρυθμίσεις Header
+        javax.swing.table.JTableHeader header = searchTable.getTableHeader();
+        header.setBackground(new java.awt.Color(51, 102, 204));
+        header.setForeground(java.awt.Color.WHITE);
+        header.setFont(header.getFont().deriveFont(java.awt.Font.BOLD));
+
+        // Ρυθμίσεις Στηλών
+        javax.swing.table.TableColumnModel cm = searchTable.getColumnModel();
+        cm.getColumn(0).setPreferredWidth(200); // Τίτλος
+        cm.getColumn(1).setPreferredWidth(500); // Απόσπασμα
+        cm.getColumn(2).setPreferredWidth(80);  // ID
+
+        // ScrollPane
+        JScrollPane scrollPane = new JScrollPane(searchTable);
+        scrollPane.getViewport().setBackground(new java.awt.Color(18, 21, 28));
+        scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
+
+        // Κάτω Panel
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
         JButton saveBtn = new JButton("Αποθήκευση Επιλεγμένου");
-        saveBtn.setBackground(new java.awt.Color(40, 167, 69)); // Πράσινο
+        saveBtn.setBackground(new java.awt.Color(51, 102, 204));
         saveBtn.setForeground(java.awt.Color.WHITE);
         saveBtn.setFocusPainted(false);
-        add(saveBtn, BorderLayout.SOUTH);
-        
-        // Ενέργειες Παραθύρου
-        // Λειτουργία Αναζήτησης. Πατάμε το κουμπί Αναζήτηση.
-        searchBtn.addActionListener(e -> performSearch());
-        // Λειτουργία Αποθήκευσης. Πατάμε αποθήκευση του άρθου που θέλουμε.
-        saveBtn.addActionListener(e -> saveSelectedArticle());
-        // Επιτρέπει την αναζήτηση με το πάτημα του Enter
-        searchField.addActionListener(e -> performSearch());
-    }
+        bottomPanel.add(saveBtn);
 
+        // Προσθήκη στο Panel
+        add(topPanel, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // Listeners
+        searchBtn.addActionListener(e -> performSearch());
+        searchField.addActionListener(e -> performSearch());
+        saveBtn.addActionListener(e -> saveSelectedArticle());
+
+        this.setBackground(new java.awt.Color(18, 21, 28));
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    }
+    
     private void performSearch() {
         // Αφαίρεση τυχόν κενών απο αρχή και τέλος.
         String query = searchField.getText().trim();
