@@ -20,58 +20,92 @@ public class LibraryPanel extends JPanel {
         setLayout(new BorderLayout());
         initComponents();
     }
-
+    
     private void initComponents() {
+        // Πάνω Panel
         JPanel topPanel = new JPanel();
+        topPanel.setBackground(new java.awt.Color(18, 21, 28));
+    
         categoryFilter = new JComboBox<>();
-        JButton filterBtn = new JButton("Εμφάνιση Αποθηκευμένων");
+        JButton filterBtn = new JButton("Φίλτρο");
         JButton addCatBtn = new JButton("Προσθήκη Κατηγορίας");
-        topPanel.add(new JLabel("Κατηγορία:"));
+    
+        // Styling Κουμπιών & ComboBox
+        filterBtn.setBackground(new java.awt.Color(51, 102, 204));
+        filterBtn.setForeground(java.awt.Color.WHITE);
+        addCatBtn.setBackground(new java.awt.Color(51, 102, 204));
+        addCatBtn.setForeground(java.awt.Color.WHITE);
+    
+        JLabel catLabel = new JLabel("Κατηγορία:");
+        catLabel.setForeground(new java.awt.Color(51, 102, 204));
+        catLabel.setFont(catLabel.getFont().deriveFont(java.awt.Font.BOLD));
+
+        topPanel.add(catLabel);
         topPanel.add(categoryFilter);
         topPanel.add(filterBtn);
         topPanel.add(addCatBtn);
 
-        localModel = new DefaultTableModel(new String[]{"ID Σελίδας", "Τίτλος", "Κατηγορία", "Βαθμολογία", "Σχόλια"}, 0);
+        // Πίνακας
+        localModel = new DefaultTableModel(new String[]{"ID Σελίδα", "Τίτλος", "Κατηγορία", "Βαθμολογία", "Σχόλια"}, 0);
         localTable = new JTable(localModel) {
             @Override
-            public Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
-                Component c = super.prepareRenderer(renderer, row, column);
-                // Αν η γραμμή δεν είναι επιλεγμένη
+            public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
+                java.awt.Component c = super.prepareRenderer(renderer, row, column);
                 if (!isRowSelected(row)) {
-                    // Χρωμάτισε τις ζυγές γραμμές με ένα ελαφρύ γκρι
-                    c.setBackground(row % 2 == 0 ? getBackground() : new Color(240, 240, 240));
+                    c.setBackground(row % 2 == 0 ? new java.awt.Color(32, 37, 48) : new java.awt.Color(25, 30, 40));
+                    c.setForeground(new java.awt.Color(230, 230, 230));
+                } else {
+                    c.setBackground(new java.awt.Color(51, 102, 204));
+                    c.setForeground(java.awt.Color.WHITE);
                 }
                 return c;
             }
         };
-        //Προσαρμογή μεγέθους Στηλών
-        javax.swing.table.TableColumnModel columnModel = localTable.getColumnModel();// Λήψη του μοντέλου στηλών
-        columnModel.getColumn(0).setPreferredWidth(80);// ID Σελίδας (Στήλη 0) - Σταθερό πλάτος
-        columnModel.getColumn(0).setMaxWidth(100);// Τίτλος (Στήλη 1) - Μεγάλο πλάτος (θα επεκτείνεται)
-        columnModel.getColumn(1).setPreferredWidth(300);// Κατηγορία (Στήλη 2)
-        columnModel.getColumn(2).setPreferredWidth(120);// Βαθμολογία (Στήλη 3) - Σταθερό πλάτος
-        columnModel.getColumn(3).setPreferredWidth(80);
-        columnModel.getColumn(3).setMaxWidth(100);
-        columnModel.getColumn(4).setPreferredWidth(200);// Σχόλια (Στήλη 4)
-        localTable.setRowHeight(25); // Αυξάνει το ύψος για να φαίνεται πιο καθαρά το κείμενο
-        localTable.setShowGrid(false); // Κρύβει τις γραμμές του πλέγματος για πιο clean look
-        localTable.setIntercellSpacing(new Dimension(0, 0)); // Μειώνει τα κενά ανάμεσα στα κελιά
-        
-        add(topPanel, BorderLayout.NORTH);
-        add(new JScrollPane(localTable), BorderLayout.CENTER);
-        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        localTable.setBackground(new java.awt.Color(32, 37, 48));
+        localTable.setFillsViewportHeight(true);
+        localTable.setRowHeight(25);
+        localTable.setShowGrid(false);
+
+        // Header & Στήλες
+        javax.swing.table.JTableHeader header = localTable.getTableHeader();
+        header.setBackground(new java.awt.Color(51, 102, 204));
+        header.setForeground(java.awt.Color.WHITE);
+
+        javax.swing.table.TableColumnModel cm = localTable.getColumnModel();
+        cm.getColumn(0).setPreferredWidth(80);  // ID
+        cm.getColumn(1).setPreferredWidth(250); // Τίτλος
+        cm.getColumn(2).setPreferredWidth(100); // Κατηγορία
+        cm.getColumn(3).setPreferredWidth(80);  // Βαθμολογία
+        cm.getColumn(4).setPreferredWidth(150); // Σχόλια
+
+        // ScrollPane
+        JScrollPane scrollPane = new JScrollPane(localTable);
+        scrollPane.getViewport().setBackground(new java.awt.Color(18, 21, 28));
+        scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
+
+        // Κάτω Panel
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
         JButton editBtn = new JButton("Επεξεργασία Επιλεγμένου");
-        add(editBtn, BorderLayout.SOUTH);
+        editBtn.setBackground(new java.awt.Color(51, 102, 204));
+        editBtn.setForeground(java.awt.Color.WHITE);
+        bottomPanel.add(editBtn);
 
-        // Ενέργειες Παραθύρου
-        // Πατάμε το κουμπί του Φίλτρο (βάση κατηγορίας επιλογής)
+        add(topPanel, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // Listeners
         filterBtn.addActionListener(e -> loadLocalArticles());
-        // Προσθήκη νέας κατηγορίας.
         addCatBtn.addActionListener(e -> addCategory());
-        // Επεξεργασία Αποθηκευμένου Άρθρου
         editBtn.addActionListener(e -> editSelectedArticle());
-    }
 
+        this.setBackground(new java.awt.Color(18, 21, 28));
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    }
+    
+    
     // Φόρτωσε τα σχετικά άρθα απο την βάση
     public void loadLocalArticles() {
         Category selected = (Category) categoryFilter.getSelectedItem();
