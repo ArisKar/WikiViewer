@@ -27,7 +27,7 @@ public class LibraryPanel extends JPanel {
         topPanel.setBackground(new java.awt.Color(18, 21, 28));
     
         categoryFilter = new JComboBox<>();
-        JButton filterBtn = new JButton("Αποθηκευμένα άρθρα");
+        JButton filterBtn = new JButton("Εμφάνιση Αποθηκευμένων");
         JButton addCatBtn = new JButton("Προσθήκη Κατηγορίας");
     
         // Styling Κουμπιών & ComboBox
