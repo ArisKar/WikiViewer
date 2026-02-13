@@ -72,6 +72,18 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Αναζήτηση [Live από API]", searchPanel);
         tabbedPane.addTab("Αποθηκευμένα Άρθρα", libraryPanel);
         tabbedPane.addTab("Στατιστικά", statisticsPanel);
+        
+        //Μη υλοποιημένα tabs
+        JPanel manualEntryPanel = new JPanel(); // Για την Απαίτηση 7
+        JPanel editCategoryPanel = new JPanel(); // Για την Απαίτηση 8
+        JPanel addCategoryPanel = new JPanel(); // Για την Απαίτηση 9
+        tabbedPane.addTab("Χειροκίνητη Εισαγωγή", manualEntryPanel);
+        tabbedPane.addTab("Τροποποίηση σε Κατηγορία", editCategoryPanel);
+        tabbedPane.addTab("Προσθήκη Κατηγορίας ", addCategoryPanel);
+        // Απενεργοποίηση των μη υλοποιημένων
+        tabbedPane.setEnabledAt(3, false);
+        tabbedPane.setEnabledAt(4, false);
+        tabbedPane.setEnabledAt(5, false);
          
         // Προσθήκη του tabbed pane στο frame
         add(tabbedPane, BorderLayout.CENTER);
