@@ -80,6 +80,7 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Χειροκίνητη Εισαγωγή", manualEntryPanel);
         tabbedPane.addTab("Τροποποίηση σε Κατηγορία", editCategoryPanel);
         tabbedPane.addTab("Προσθήκη Κατηγορίας ", addCategoryPanel);
+        
         // Απενεργοποίηση των μη υλοποιημένων
         tabbedPane.setEnabledAt(3, false);
         tabbedPane.setEnabledAt(4, false);
