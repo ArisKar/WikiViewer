@@ -28,14 +28,15 @@ public class LibraryPanel extends JPanel {
         topPanel.setBackground(new java.awt.Color(18, 21, 28));
 
         categoryFilter = new JComboBox < > ();
-        JButton filterBtn = new JButton("Εμφάνιση Αποθηκευμένων");
+        JButton filterBtn = new JButton("↻");
+        filterBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 18));
         JButton addCatBtn = new JButton("Προσθήκη Κατηγορίας");
 
         // Styling Κουμπιών & ComboBox
-        filterBtn.setBackground(new java.awt.Color(51, 102, 204));
-        filterBtn.setForeground(java.awt.Color.WHITE);
-        addCatBtn.setBackground(new java.awt.Color(51, 102, 204));
-        addCatBtn.setForeground(java.awt.Color.WHITE);
+        filterBtn.setBackground(new java.awt.Color(18, 21, 28));
+        filterBtn.setForeground(new java.awt.Color(51, 102, 204));
+        addCatBtn.setBackground(new java.awt.Color(18, 21, 28));
+        addCatBtn.setForeground(new java.awt.Color(51, 102 ,204));
 
         JLabel catLabel = new JLabel("Κατηγορία:");
         catLabel.setForeground(new java.awt.Color(51, 102, 204));
@@ -48,34 +49,19 @@ public class LibraryPanel extends JPanel {
 
         // Δεύτερο Panel, αναζήτηση με keyword.
         JPanel searchPanel = new JPanel();
-        searchPanel.setBackground(new java.awt.Color(18, 21, 28));
-
-        JLabel searchLabel = new JLabel("🔍 Αναζήτηση στην ΒΔ:");
-        searchLabel.setForeground(new java.awt.Color(51, 102, 204));
-        searchLabel.setFont(searchLabel.getFont().deriveFont(java.awt.Font.BOLD));
-
+        searchPanel.setBackground(new java.awt.Color(18, 21, 28));  
+        
         searchFieldLocal = new JTextField(25);
         searchFieldLocal.setBackground(new java.awt.Color(32, 37, 48));
         searchFieldLocal.setForeground(java.awt.Color.WHITE);
         searchFieldLocal.setCaretColor(java.awt.Color.WHITE);
         searchFieldLocal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
 
-        JButton keywordSearchBtn = new JButton("Αναζήτηση Keyword ΒΔ");
-        keywordSearchBtn.setBackground(new java.awt.Color(40, 167, 69)); // Πράσινο για διαφοροποίηση
-        keywordSearchBtn.setForeground(java.awt.Color.WHITE);
-        keywordSearchBtn.setFocusPainted(false);
-
-        searchPanel.add(searchLabel);
-        searchPanel.add(searchFieldLocal);
-        searchPanel.add(keywordSearchBtn);
-        //searchPanel.add(clearSearchBtn);
-
         JPanel topContainer = new JPanel();
         topContainer.setLayout(new BoxLayout(topContainer, BoxLayout.Y_AXIS));
         topContainer.setBackground(new java.awt.Color(18, 21, 28));
         topContainer.add(topPanel);
         topContainer.add(searchPanel);
-
 
         // Πίνακας
         localModel = new DefaultTableModel(new String[] {
@@ -100,15 +86,16 @@ public class LibraryPanel extends JPanel {
             }
         };
 
-        localTable.setBackground(new java.awt.Color(32, 37, 48));
+        localTable.setBackground(new java.awt.Color(18, 21, 28));
+        localTable.setForeground(new  java.awt.Color(51, 102, 204));
         localTable.setFillsViewportHeight(true);
         localTable.setRowHeight(25);
         localTable.setShowGrid(false);
 
         // Header & Στήλες
         javax.swing.table.JTableHeader header = localTable.getTableHeader();
-        header.setBackground(new java.awt.Color(51, 102, 204));
-        header.setForeground(java.awt.Color.WHITE);
+        header.setBackground(new java.awt.Color(18, 21, 28));
+        header.setForeground(new java.awt.Color(51, 102, 204));
 
         javax.swing.table.TableColumnModel cm = localTable.getColumnModel();
         cm.getColumn(0).setPreferredWidth(80); // ID
@@ -126,8 +113,8 @@ public class LibraryPanel extends JPanel {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
         JButton editBtn = new JButton("Επεξεργασία Επιλεγμένου");
-        editBtn.setBackground(new java.awt.Color(51, 102, 204));
-        editBtn.setForeground(java.awt.Color.WHITE);
+        editBtn.setBackground(new java.awt.Color(18, 21, 28));
+        editBtn.setForeground(new java.awt.Color(51, 102, 204));
         bottomPanel.add(editBtn);
 
         add(topContainer, BorderLayout.NORTH);
@@ -138,9 +125,6 @@ public class LibraryPanel extends JPanel {
         filterBtn.addActionListener(e -> loadLocalArticles());
         addCatBtn.addActionListener(e -> addCategory());
         editBtn.addActionListener(e -> editSelectedArticle());
-
-        keywordSearchBtn.addActionListener(e -> performKeywordSearch());
-        searchFieldLocal.addActionListener(e -> performKeywordSearch());
 
         this.setBackground(new java.awt.Color(18, 21, 28));
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -377,7 +361,7 @@ public class LibraryPanel extends JPanel {
             });
         }
     }
-
+    
     /**
      * Επαναφέρει το category filter στην επιλογή "Όλες".
      * Αποφεύγεται η σύγχηση dropdown search και επιλογής με keyword.

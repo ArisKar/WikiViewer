@@ -36,9 +36,10 @@ public class SearchPanel extends JPanel {
         searchField.setCaretColor(java.awt.Color.WHITE);
         searchField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
 
-        JButton searchBtn = new JButton("Αναζήτηση");
-        searchBtn.setBackground(new java.awt.Color(51, 102, 204));
-        searchBtn.setForeground(java.awt.Color.WHITE);
+        JButton searchBtn = new JButton("🔍");
+        searchBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 14));
+        searchBtn.setBackground(new java.awt.Color(18, 21, 28));
+        searchBtn.setForeground(new java.awt.Color(51, 102 ,204));
         searchBtn.setFocusPainted(false);
 
         JLabel searchLabel = new JLabel("Λέξη κλειδί:");
@@ -78,8 +79,8 @@ public class SearchPanel extends JPanel {
 
         // Ρυθμίσεις Header
         javax.swing.table.JTableHeader header = searchTable.getTableHeader();
-        header.setBackground(new java.awt.Color(51, 102, 204));
-        header.setForeground(java.awt.Color.WHITE);
+        header.setBackground(new java.awt.Color(18, 21, 28));
+        header.setForeground(new java.awt.Color(51, 102, 204));
         header.setFont(header.getFont().deriveFont(java.awt.Font.BOLD));
 
         // Ρυθμίσεις Στηλών
@@ -96,9 +97,10 @@ public class SearchPanel extends JPanel {
         // Κάτω Panel
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
-        JButton saveBtn = new JButton("Αποθήκευση Επιλεγμένου");
-        saveBtn.setBackground(new java.awt.Color(51, 102, 204));
-        saveBtn.setForeground(java.awt.Color.WHITE);
+        JButton saveBtn = new JButton(" 💾 ");
+        saveBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 24));
+        saveBtn.setBackground(new java.awt.Color(18, 21, 28));
+        saveBtn.setForeground(new java.awt.Color(100, 150, 255));
         saveBtn.setFocusPainted(false);
         bottomPanel.add(saveBtn);
 

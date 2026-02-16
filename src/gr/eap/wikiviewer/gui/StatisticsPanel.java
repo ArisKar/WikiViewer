@@ -50,17 +50,17 @@ public class StatisticsPanel extends JPanel {
         };
 
         // Ρυθμίσεις εμφάνισης και γεμίσματος του πίνακα
-        statsTable.setBackground(new java.awt.Color(32, 37, 48));
-        statsTable.setForeground(new java.awt.Color(230, 230, 230));
-        statsTable.setFillsViewportHeight(true); // Διορθώνει το γκρι φόντο όταν ο πίνακας είναι άδειος
+        statsTable.setBackground(new java.awt.Color(18, 21, 28));
+        statsTable.setForeground(new java.awt.Color(51, 102, 204));
+        statsTable.setFillsViewportHeight(true);
         statsTable.setRowHeight(28);
         statsTable.setShowGrid(false);
         statsTable.setIntercellSpacing(new java.awt.Dimension(0, 0));
 
         // Ρυθμίσεις Κεφαλίδας (Header)
         javax.swing.table.JTableHeader statsHeader = statsTable.getTableHeader();
-        statsHeader.setBackground(new java.awt.Color(51, 102, 204));
-        statsHeader.setForeground(java.awt.Color.WHITE);
+        statsHeader.setBackground(new java.awt.Color(18, 21, 28));
+        statsHeader.setForeground(new java.awt.Color(51, 102, 204));
         statsHeader.setFont(statsHeader.getFont().deriveFont(java.awt.Font.BOLD, 13f));
 
         // Ρυθμίσεις Στηλών (Πλάτος και Κεντράρισμα)
@@ -83,9 +83,10 @@ public class StatisticsPanel extends JPanel {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
 
-        JButton refreshBtn = new JButton("Ανανέωση");
-        refreshBtn.setBackground(new java.awt.Color(108, 117, 125));
-        refreshBtn.setForeground(java.awt.Color.WHITE);
+        JButton refreshBtn = new JButton("↻");
+        refreshBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 18));
+        refreshBtn.setBackground(new java.awt.Color(18, 21, 28));
+        refreshBtn.setForeground(new java.awt.Color(51, 102, 204));
         refreshBtn.setFocusPainted(false);
         refreshBtn.setToolTipText("Επικαιροποίηση των στατιστικών στοιχείων από τη βάση δεδομένων");
 

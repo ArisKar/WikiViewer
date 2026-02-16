@@ -42,17 +42,18 @@ public class MainFrame extends JFrame {
         tabbedPane = new JTabbedPane(JTabbedPane.LEFT);
 
         //  Ρύθμιση του φόντου του JTabbedPane
-        tabbedPane.setBackground(new java.awt.Color(18, 21, 28)); // Το σκούρο φόντο
-        tabbedPane.setForeground(java.awt.Color.WHITE); // Λευκά γράμματα στα tabs
+        tabbedPane.setBackground(new java.awt.Color(18, 21, 28)); 
+        tabbedPane.setForeground(new java.awt.Color(51, 102, 204));
         tabbedPane.setOpaque(true);
 
-        //  Ρύθμιση των UI defaults για να φύγει το γκρι περίγραμμα (προαιρετικό αλλά προτείνεται)
+        //  Ρύθμιση των UI defaults
         UIManager.put("TabbedPane.contentAreaColor", new java.awt.Color(18, 21, 28));
-        UIManager.put("TabbedPane.selected", new java.awt.Color(51, 102, 204)); // Μπλε όταν επιλέγεται
+        UIManager.put("TabbedPane.selected", new java.awt.Color(51, 102, 204));
         UIManager.put("TabbedPane.borderHighlightColor", new java.awt.Color(51, 102, 204));
 
         //  Ρύθμιση του φόντου του ίδιου του Frame
         this.getContentPane().setBackground(new java.awt.Color(18, 21, 28));
+       
 
         // Αλλαγή γραμματοσειράς για όλα τα tabs
         tabbedPane.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 14));
@@ -61,6 +62,7 @@ public class MainFrame extends JFrame {
         searchPanel = new SearchPanel(this, wikiService, dbManager);
         libraryPanel = new LibraryPanel(dbManager);
         statisticsPanel = new StatisticsPanel(dbManager, pdfService);
+        DatabaseSearchPanel dbSearchPanel = new DatabaseSearchPanel(dbManager);
 
 
         //Εφαρμογή του θέματος σε κάθε panel
@@ -69,10 +71,11 @@ public class MainFrame extends JFrame {
         applyWikipediaTheme(statisticsPanel);
 
         // Προσθήκη tabs
-        tabbedPane.addTab("Αναζήτηση [Live από API]", searchPanel);
-        tabbedPane.addTab("Αποθηκευμένα Άρθρα", libraryPanel);
-        tabbedPane.addTab("Στατιστικά", statisticsPanel);
-
+        tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Αναζήτηση [Live από API]</body></html>", searchPanel);
+        tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Αποθηκευμένα Άρθρα</body></html>", libraryPanel);
+        tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Αναζήτηση στη ΒΔ</body></html>", dbSearchPanel);
+        tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Στατιστικά</body></html>", statisticsPanel);
+        
         //Μη υλοποιημένα tabs
         JPanel manualEntryPanel = new JPanel(); // Για την Απαίτηση 7
         JPanel editCategoryPanel = new JPanel(); // Για την Απαίτηση 8
@@ -82,9 +85,9 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Προσθήκη Κατηγορίας ", addCategoryPanel);
 
         // Απενεργοποίηση των μη υλοποιημένων
-        tabbedPane.setEnabledAt(3, false);
         tabbedPane.setEnabledAt(4, false);
         tabbedPane.setEnabledAt(5, false);
+        tabbedPane.setEnabledAt(6, false);
 
         // Προσθήκη του tabbed pane στο frame
         add(tabbedPane, BorderLayout.CENTER);
