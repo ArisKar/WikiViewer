@@ -11,12 +11,19 @@ import java.awt.*;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Κλάση που υλοποιεί το Panel των Στατιστικών.
+ * Προβάλλει συγκεντρωτικά δεδομένα από τη βάση (λέξεις-κλειδιά, κατηγορίες)
+ * και επιτρέπει την εξαγωγή τους σε αρχείο PDF.
+ */
 public class StatisticsPanel extends JPanel {
+    // Στοιχεία Διεπαφής (GUI Components)
     private final DBManager dbManager;
     private final PDFService pdfService;
     private JTable statsTable;
     private DefaultTableModel statsModel;
-
+    
+    //Constructor
     public StatisticsPanel(DBManager dbManager, PDFService pdfService) {
         this.dbManager = dbManager;
         this.pdfService = pdfService;
