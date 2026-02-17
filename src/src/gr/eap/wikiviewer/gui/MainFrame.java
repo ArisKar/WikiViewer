@@ -73,7 +73,7 @@ public class MainFrame extends JFrame {
         // Προσθήκη tabs
         tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Αναζήτηση [Live από API]</body></html>", searchPanel);
         tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Αποθηκευμένα Άρθρα</body></html>", libraryPanel);
-        tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Αναζήτηση στη ΒΔ</body></html>", dbSearchPanel);
+        tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Αναζήτηση στη ΒΔ [με keyword]</body></html>", dbSearchPanel);
         tabbedPane.addTab("<html><body style='color: rgb(51, 102, 204); font-weight: bold;'>Στατιστικά</body></html>", statisticsPanel);
         
         //Μη υλοποιημένα tabs
