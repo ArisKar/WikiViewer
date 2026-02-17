@@ -8,15 +8,20 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Κλάση που υλοποιεί το Panel αναζήτησης άρθρων live από το API της Wikipedia.
+ * Περιλαμβάνει τη διεπαφή χρήστη και τη λογική επικοινωνίας με το API και τη ΒΔ.
+ */
 public class SearchPanel extends JPanel {
+    // Στοιχεία Διεπαφής (GUI Components)
     private final WikipediaService wikiService;
     private final DBManager dbManager;
     private final MainFrame parent;
-
     private JTable searchTable;
     private DefaultTableModel searchModel;
     private JTextField searchField;
 
+    //Constructor
     public SearchPanel(MainFrame parent, WikipediaService wikiService, DBManager dbManager) {
         this.parent = parent;
         this.wikiService = wikiService;
@@ -35,13 +40,15 @@ public class SearchPanel extends JPanel {
         searchField.setForeground(java.awt.Color.WHITE);
         searchField.setCaretColor(java.awt.Color.WHITE);
         searchField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
-
+        
+        // Κουμπί Αναζήτησης
         JButton searchBtn = new JButton("🔍");
         searchBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 14));
         searchBtn.setBackground(new java.awt.Color(18, 21, 28));
         searchBtn.setForeground(new java.awt.Color(51, 102 ,204));
         searchBtn.setFocusPainted(false);
-
+        
+        //Περισγραφή του search
         JLabel searchLabel = new JLabel("Λέξη κλειδί:");
         searchLabel.setForeground(new java.awt.Color(51, 102, 204));
         searchLabel.setFont(searchLabel.getFont().deriveFont(java.awt.Font.BOLD));
@@ -50,7 +57,7 @@ public class SearchPanel extends JPanel {
         topPanel.add(searchField);
         topPanel.add(searchBtn);
 
-        // Δημιουργία Μοντέλου και Πίνακα
+        // Πίνακας αποτελεσμάτων
         searchModel = new DefaultTableModel(new String[] {
             "Τίτλος",
             "Απόσπασμα",
@@ -60,10 +67,10 @@ public class SearchPanel extends JPanel {
             @Override
             public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
                 java.awt.Component c = super.prepareRenderer(renderer, row, column);
-                if (!isRowSelected(row)) {
+                if (!isRowSelected(row)) { // Striped effect για ευκολότερη ανάγνωση
                     c.setBackground(row % 2 == 0 ? new java.awt.Color(32, 37, 48) : new java.awt.Color(25, 30, 40));
                     c.setForeground(new java.awt.Color(230, 230, 230));
-                } else {
+                } else {    // Χρώμα όταν μια γραμμή είναι επιλεγμένη
                     c.setBackground(new java.awt.Color(51, 102, 204));
                     c.setForeground(java.awt.Color.WHITE);
                 }
