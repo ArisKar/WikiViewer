@@ -9,26 +9,34 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Κλάση που υλοποιεί το Panel της Βιβλιοθήκης (Αποθηκευμένα Άρθρα).
+ * Επιτρέπει την προβολή, το φιλτράρισμα και την επεξεργασία των άρθρων της ΒΔ.
+ */
 public class LibraryPanel extends JPanel {
-    private final DBManager dbManager;
-    private JTable localTable;
-    private DefaultTableModel localModel;
-    private JComboBox<Category> categoryFilter;
+    private final DBManager dbManager;          // Ο κύριος πίνακας προβολής
+    private JTable localTable;                  // Το μοντέλο δεδομένων του πίνακα
+    private DefaultTableModel localModel;       // Dropdown για φιλτράρισμα ανά κατηγορία
+    private JComboBox<Category> categoryFilter; // Σύνδεση με το Service της βάσης
 
+    //COnstructor
     public LibraryPanel(DBManager dbManager) {
         this.dbManager = dbManager;
         setLayout(new BorderLayout());
-        initComponents();
+        initComponents();   // Αρχικοποίηση GUI
     }
-
+    
+    //Κατασκευή του οπτικού περιβάλλοντος
     private void initComponents() {
         // Πάνω Panel
         JPanel topPanel = new JPanel();
         topPanel.setBackground(new java.awt.Color(18, 21, 28));
 
         categoryFilter = new JComboBox < > ();
+        //Κουμπί ανανέωσης
         JButton filterBtn = new JButton("↻");
         filterBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 18));
+        //Κουμπί προσθήκης κατηγορίας
         JButton addCatBtn = new JButton("Προσθήκη Κατηγορίας");
 
         // Styling Κουμπιών & ComboBox
@@ -37,15 +45,11 @@ public class LibraryPanel extends JPanel {
         addCatBtn.setBackground(new java.awt.Color(18, 21, 28));
         addCatBtn.setForeground(new java.awt.Color(51, 102 ,204));
 
-        JLabel catLabel = new JLabel("Κατηγορία:");
-        catLabel.setForeground(new java.awt.Color(51, 102, 204));
-        catLabel.setFont(catLabel.getFont().deriveFont(java.awt.Font.BOLD));
-
-        topPanel.add(catLabel);
         topPanel.add(categoryFilter);
         topPanel.add(filterBtn);
         topPanel.add(addCatBtn);
-
+        
+        //Πίνακας αποτελεσμάτων
         localModel = new DefaultTableModel(new String[] {
             "ID Σελίδα",
             "Τίτλος",
@@ -57,17 +61,18 @@ public class LibraryPanel extends JPanel {
             @Override
             public java.awt.Component prepareRenderer(javax.swing.table.TableCellRenderer renderer, int row, int column) {
                 java.awt.Component c = super.prepareRenderer(renderer, row, column);
-                if (!isRowSelected(row)) {
+                if (!isRowSelected(row)) { // Εναλλαγή χρωμάτων γραμμών για καλύτερη ανάγνωση (striped effect)
                     c.setBackground(row % 2 == 0 ? new java.awt.Color(32, 37, 48) : new java.awt.Color(25, 30, 40));
                     c.setForeground(new java.awt.Color(230, 230, 230));
-                } else {
+                } else {// Χρώμα όταν μια γραμμή είναι επιλεγμένη
                     c.setBackground(new java.awt.Color(51, 102, 204));
                     c.setForeground(java.awt.Color.WHITE);
                 }
                 return c;
             }
         };
-
+        
+        // Styling του Πίνακα για Dark Mode
         localTable.setBackground(new java.awt.Color(18, 21, 28));
         localTable.setForeground(new  java.awt.Color(51, 102, 204));
         localTable.setFillsViewportHeight(true);
@@ -200,7 +205,7 @@ public class LibraryPanel extends JPanel {
             }
         }
     }
-
+    //Επεξεργασία επιλεγμένης κατηγορίας
     private void editSelectedArticle() {
         // Επιλογή του άρθρου
         int row = localTable.getSelectedRow();
