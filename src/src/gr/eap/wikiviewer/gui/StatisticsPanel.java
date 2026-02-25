@@ -106,10 +106,24 @@ public class StatisticsPanel extends JPanel {
         bottomPanel.add(refreshBtn);
         bottomPanel.add(pdfBtn);
         add(bottomPanel, BorderLayout.SOUTH);
+        
+        JButton newWindowBtn = new JButton("Show Statistics");
+        newWindowBtn.setBackground(new java.awt.Color(51, 102, 204));
+        newWindowBtn.setForeground(java.awt.Color.WHITE);
+        newWindowBtn.setFocusPainted(false);
+        newWindowBtn.setToolTipText("Statistics");
+        
+        bottomPanel.add(newWindowBtn);
+        add(bottomPanel, BorderLayout.SOUTH);
+        
+        BarPieChartWindow barPieChartWindow = new BarPieChartWindow(dbManager);
 
         // Ενέργειες (Listeners)
         refreshBtn.addActionListener(e -> loadStats());
         pdfBtn.addActionListener(e -> exportStatsToPdf());
+        newWindowBtn.addActionListener(e ->barPieChartWindow.showWindow());
+        
+        
 
         // Γενικό περιθώριο στο Panel
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
