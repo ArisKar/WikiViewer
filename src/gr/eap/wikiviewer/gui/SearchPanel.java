@@ -83,7 +83,7 @@ public class SearchPanel extends JPanel {
         };
 
         // Ρυθμίσεις Εμφάνισης Πίνακα
-        searchTable.setBackground(new java.awt.Color(32, 37, 48));
+        searchTable.setBackground(new java.awt.Color(18, 21, 28));
         searchTable.setFillsViewportHeight(true);
         searchTable.setRowHeight(25);
         searchTable.setShowGrid(false);
