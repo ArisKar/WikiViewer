@@ -90,24 +90,18 @@ public class StatisticsPanel extends JPanel {
 
         // Δημιουργία και Ρύθμιση του ScrollPane (Viewport)
         JScrollPane scrollPane = new JScrollPane(statsTable);
-        scrollPane.getViewport().setBackground(new java.awt.Color(18, 21, 28)); // Σκούρο φόντο περιοχής
         scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
         add(scrollPane, BorderLayout.CENTER);
 
         // Κάτω Panel με Κουμπιά
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
 
         JButton refreshBtn = new JButton("↻");
         refreshBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 18));
-        refreshBtn.setBackground(new java.awt.Color(18, 21, 28));
-        refreshBtn.setForeground(new java.awt.Color(51, 102, 204));
         refreshBtn.setFocusPainted(false);
         refreshBtn.setToolTipText("Επικαιροποίηση των στατιστικών στοιχείων από τη βάση δεδομένων");
 
         JButton pdfBtn = new JButton("Εξαγωγή σε PDF");
-        pdfBtn.setBackground(new java.awt.Color(220, 53, 69));
-        pdfBtn.setForeground(java.awt.Color.WHITE);
         pdfBtn.setFocusPainted(false);
         pdfBtn.setToolTipText("Δημιουργία αρχείου PDF με τα πιο δημοφιλή keywords και άρθρα ανά κατηγορία");
 
@@ -116,8 +110,6 @@ public class StatisticsPanel extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
 
         JButton newWindowBtn = new JButton("Show Statistics");
-        newWindowBtn.setBackground(new java.awt.Color(51, 102, 204));
-        newWindowBtn.setForeground(java.awt.Color.WHITE);
         newWindowBtn.setFocusPainted(false);
         newWindowBtn.setToolTipText("Statistics");
 
@@ -133,7 +125,6 @@ public class StatisticsPanel extends JPanel {
 
         // Γενικό περιθώριο στο Panel
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        this.setBackground(new java.awt.Color(18, 21, 28));
     }
 
     // Φόρτωση στατιστικών από τη βάση δεδομένων.

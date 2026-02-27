@@ -36,26 +36,21 @@ public class SearchPanel extends JPanel {
     private void initComponents() {
         // Πάνω Panel Αναζήτησης
         JPanel topPanel = new JPanel();
-        topPanel.setBackground(new java.awt.Color(18, 21, 28));
+       
 
         searchField = new JTextField(30);
-        searchField.setBackground(new java.awt.Color(32, 37, 48));
-        searchField.setForeground(java.awt.Color.WHITE);
         searchField.setCaretColor(java.awt.Color.WHITE);
         searchField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
 
         // Κουμπί Αναζήτησης
         JButton searchBtn = new JButton("🔍");
         searchBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 14));
-        searchBtn.setBackground(new java.awt.Color(18, 21, 28));
-        searchBtn.setForeground(new java.awt.Color(51, 102, 204));
         searchBtn.setFocusPainted(false);
 
         //Περισγραφή του search
         JLabel searchLabel = new JLabel("Λέξη κλειδί:");
-        searchLabel.setForeground(new java.awt.Color(51, 102, 204));
+        
         searchLabel.setFont(searchLabel.getFont().deriveFont(java.awt.Font.BOLD));
-
         topPanel.add(searchLabel);
         topPanel.add(searchField);
         topPanel.add(searchBtn);
@@ -107,16 +102,12 @@ public class SearchPanel extends JPanel {
 
         // ScrollPane
         JScrollPane scrollPane = new JScrollPane(searchTable);
-        scrollPane.getViewport().setBackground(new java.awt.Color(18, 21, 28));
         scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
 
         // Κάτω Panel
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
         JButton saveBtn = new JButton(" 💾 ");
         saveBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 24));
-        saveBtn.setBackground(new java.awt.Color(18, 21, 28));
-        saveBtn.setForeground(new java.awt.Color(100, 150, 255));
         saveBtn.setFocusPainted(false);
         bottomPanel.add(saveBtn);
 
@@ -130,7 +121,6 @@ public class SearchPanel extends JPanel {
         searchField.addActionListener(e -> performSearch());
         saveBtn.addActionListener(e -> saveSelectedArticle());
 
-        this.setBackground(new java.awt.Color(18, 21, 28));
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
     }
 

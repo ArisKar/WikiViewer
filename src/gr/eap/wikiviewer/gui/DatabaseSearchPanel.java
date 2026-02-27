@@ -36,8 +36,6 @@ public class DatabaseSearchPanel extends JPanel {
 
         // Κουππί αναζήτησης
         JButton searchBtn = new JButton("Αναζήτηση στη ΒΔ:");
-        searchBtn.setBackground(new java.awt.Color(18, 21, 28));
-        searchBtn.setForeground(new java.awt.Color(51, 102, 204));
         searchBtn.setBorder(BorderFactory.createLineBorder(new java.awt.Color(18, 21, 28)));
         searchBtn.setFocusPainted(false);
 
@@ -51,14 +49,10 @@ public class DatabaseSearchPanel extends JPanel {
         //Κουμπί refresh
         JButton refreshBtn = new JButton("↻");
         refreshBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 18));
-        refreshBtn.setBackground(new java.awt.Color(18, 21, 28));
-        refreshBtn.setForeground(new java.awt.Color(51, 102, 204));
 
         //Κουμπί clear results
         JButton clearSearchBtn = new JButton("X");
         clearSearchBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 18));
-        clearSearchBtn.setBackground(new java.awt.Color(18, 21, 28));
-        clearSearchBtn.setForeground(new java.awt.Color(204, 0, 0));
 
         topPanel.add(searchBtn);
         topPanel.add(searchFieldDB);

@@ -40,14 +40,7 @@ public class LibraryPanel extends JPanel {
         //Κουμπί προσθήκης κατηγορίας
         JButton addCatBtn = new JButton("Προσθήκη Κατηγορίας");
 
-        // Styling Κουμπιών & ComboBox
-        filterBtn.setBackground(new java.awt.Color(18, 21, 28));
-        filterBtn.setForeground(new java.awt.Color(51, 102, 204));
-        addCatBtn.setBackground(new java.awt.Color(18, 21, 28));
-        addCatBtn.setForeground(new java.awt.Color(51, 102, 204));
-
         JLabel catLabel = new JLabel("Κατηγορία:");
-        catLabel.setForeground(new java.awt.Color(51, 102, 204));
         catLabel.setFont(catLabel.getFont().deriveFont(java.awt.Font.BOLD));
 
         topPanel.add(catLabel);
@@ -105,15 +98,11 @@ public class LibraryPanel extends JPanel {
 
         // ScrollPane
         JScrollPane scrollPane = new JScrollPane(localTable);
-        scrollPane.getViewport().setBackground(new java.awt.Color(18, 21, 28));
         scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
 
         // Κάτω Panel
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(new java.awt.Color(18, 21, 28));
         JButton editBtn = new JButton("Επεξεργασία Επιλεγμένου");
-        editBtn.setBackground(new java.awt.Color(18, 21, 28));
-        editBtn.setForeground(new java.awt.Color(51, 102, 204));
         bottomPanel.add(editBtn);
 
         add(topPanel, BorderLayout.NORTH);
@@ -125,7 +114,6 @@ public class LibraryPanel extends JPanel {
         addCatBtn.addActionListener(e -> addCategory());
         editBtn.addActionListener(e -> editSelectedArticle());
 
-        this.setBackground(new java.awt.Color(18, 21, 28));
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
     }
 
