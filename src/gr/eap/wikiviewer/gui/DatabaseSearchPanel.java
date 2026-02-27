@@ -47,7 +47,7 @@ public class DatabaseSearchPanel extends JPanel {
         searchFieldDB.setBorder(BorderFactory.createLineBorder(new java.awt.Color(51, 102, 204)));
 
         //Κουμπί refresh
-        JButton refreshBtn = new JButton("↻");
+        JButton refreshBtn = new JButton("🔍");
         refreshBtn.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 18));
 
         //Κουμπί clear results
@@ -167,4 +167,5 @@ public class DatabaseSearchPanel extends JPanel {
         // Καθαρισμός πίνακα
         dbModel.setRowCount(0);
     }
+
 }
